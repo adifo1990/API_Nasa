@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>API Nasa</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
+    <header>
+        <h1>NASA APIs Explorer</h1>
+
+        <p>
+            Explore dados, imagens e informações fornecidas pela NASA.
+        </p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>APOD</h2>
+
+            <p>Um dos sites mais populares da NASA é o Astronomy Picture of the Day. Na verdade, este site é um dos mais
+                populares em todas as agências federais. Tem o apelo popular de um vídeo de Justin Bieber. Esse endpoint
+                estrutura as imagens APOD e os metadados associados para que possam ser reaproveitados para outras
+                aplicações. Além disso, se o parâmetro for definido para , então as palavras-chave derivadas da
+                explicação da imagem são retornadas. Essas palavras-chave podiam ser usadas como hashtags geradas
+                automaticamente para feeds do Twitter ou Instagram; mas geralmente ajudam na descoberta de imagens
+                relevantes.</p>
+
+            <form>
+
+                <div>
+
+                    <p>Informe data</p>
+
+                    <input type="date" id="date">
+
+                    <button type="submit">
+                        Buscar por data
+                    </button>
+
+                </div>
+
+                <hr>
+
+                <div>
+
+                    <p>Pesquise por intervalo:</p>
+
+                    <p>Data inicial:</p>
+                    <input type="date" id="startDate">
+
+                    <p>Data final:</p>
+                    <input type="date" id="endDate">
+
+                    <button type="submit">
+                        Buscar por intervalo
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+    </main>
+
+
 </body>
+
 </html>
