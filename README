@@ -1,2 +1,24 @@
 FRONT-END: HTML + CSS + JS
 BACK-END: FastAPI(Pyton)
+
+1. Front-end:
+    - Ferramentas utulizadas HTML/CSS/JS, se posivel vamos tentar mudar para React.
+    - O front-end deve possibilitar que o usuário realize consultas sobre informações provenientes da API da NASA;
+    - Exemplo: buscar informações sobre imagens astronômicas do dia, meteoritos, foguetes, missões, etc;
+ 
+2. Back-end (API FastAPI):
+    - Ferramentas utulizadas FastAPI (Python);
+    - A API será responsável por:
+    - Consumir todos os endpoints GET disponíveis na API da NASA;
+    - Servir de intermediário entre o front-end e a API da NASA;
+    - *Não é permitido o front-end acessar diretamente a API da NASA: toda comunicação deve passar pelo back-end FastAPI desenvolvido pela equipe.
+ 
+3. API da NASA:
+    - Documentação: https://api.nasa.gov/!
+    - Implemente todos os endpoints das rotas GET disponíveis;
+    - Deve existir no back-end Ao menos um exemplo de consumo de cada endpoint GET.
+ 
+4. Restrições:
+    - Não é necessário implementar autenticação/autorização de usuários;
+    - NÃO é necessário implementar métodos POST, PUT, DELETE (apenas GET);
+    - *A API FastAPI não deve armazenar os dados consumidos, apenas repassar os dados aos clientes (frontend).
