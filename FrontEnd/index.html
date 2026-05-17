@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Nasa</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/services.js?v=1.1" defer></script>
 </head>
 
 <body>
@@ -13,9 +14,7 @@
     <header>
         <h1>NASA APIs Explorer</h1>
 
-        <p>
-            Explore dados, imagens e informações fornecidas pela NASA.
-        </p>
+        <p> Explore dados, imagens e informações fornecidas pela NASA.</p>
     </header>
 
     <main>
@@ -31,39 +30,22 @@
                 automaticamente para feeds do Twitter ou Instagram; mas geralmente ajudam na descoberta de imagens
                 relevantes.</p>
 
-            <form>
-
+            <div>
                 <div>
 
                     <p>Informe data</p>
 
-                    <input type="date" id="date">
+                    <input type="date" id="CampoData">
 
-                    <button type="submit">
+                    <button type="button" id="BuscarData">
                         Buscar por data
                     </button>
 
                 </div>
 
-                <hr>
+                <div id="resultadoBusca"></div>
 
-                <div>
-
-                    <p>Pesquise por intervalo:</p>
-
-                    <p>Data inicial:</p>
-                    <input type="date" id="startDate">
-
-                    <p>Data final:</p>
-                    <input type="date" id="endDate">
-
-                    <button type="submit">
-                        Buscar por intervalo
-                    </button>
-
-                </div>
-
-            </form>
+            </div>
 
         </section>
 
