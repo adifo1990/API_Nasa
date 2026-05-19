@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from controllers.nasaAPI import router as nasa_router
+from controllers.nasa_api import router as nasa_router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -32,7 +32,6 @@ if __name__ == "__main__":
         port=3000,
         reload=True
     )
-
 
 @app.get("/")
 def home():

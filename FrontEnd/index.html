@@ -20,6 +20,7 @@
     <main>
 
         <section>
+
             <h2>APOD</h2>
 
             <p>Um dos sites mais populares da NASA é o Astronomy Picture of the Day. Na verdade, este site é um dos mais
@@ -35,24 +36,56 @@
 
                     <p>Informe data</p>
 
-                    <input type="date" id="CampoData">
+                    <input type="date" id="data_field">
 
-                    <button type="button" id="BuscarData">
+                    <button type="button" id="search_data">
                         Buscar por data
                     </button>
 
                 </div>
 
-                <div id="resultadoBusca"></div>
+                <div id="search_result"></div>
 
             </div>
 
         </section>
 
+        <section>
 
+            <h2>Asteroids - NeoWs</h2>
+
+            <p>NeoWs (Near Earth Object Web Service) é um serviço web RESTful para informações sobre asteroides próximos
+                à Terra. Com o NeoWs, o usuário pode: buscar asteroides com base na data de aproximação mais próxima da
+                Terra, consultar um asteroide específico com seu ID de corpo pequeno da NASA JPL, além de navegar pelo
+                conjunto de dados geral.</p>
+            
+            <div>
+
+                <div>
+                    <p>Pesquise por intervalo:</p>
+
+                    <p>Data inicial:</p>
+                    <input type="date" id="initial_date_field">
+
+                    <p>Data final:</p>
+                    <input type="date" id="end_date_field">
+
+                    <button type="button" id="search_date_range">
+                        Buscar por intervalo
+                    </button>
+                </div>
+
+                <div id="search_result_interval"></div>
+
+            </div>
+
+        </section>
 
     </main>
 
+    <footer>
+        <p>&copy; 2023 NASA APIs Explorer. Todos os direitos reservados.</p>
+    </footer>
 
 </body>
 
