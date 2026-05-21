@@ -34,53 +34,39 @@
             <div>
                 <div>
 
-                    <p>Informe data</p>
+                    <div>
+                        <p>Informe data</p>
 
-                    <input type="date" id="data_field">
+                        <input type="date" id="data_field_apod">
 
-                    <button type="button" id="search_data">
-                        Buscar por data
-                    </button>
+                        <button type="button" id="search_data_apod">
+                            Buscar por data
+                        </button>
+                    </div>
+
+                    <div>
+                        <p>Pesquise por intervalo:</p>
+
+                        <p>Data inicial:</p>
+                        <input type="date" id="initial_date_field_apod">
+
+                        <p>Data final:</p>
+                        <input type="date" id="end_date_field_apod">
+
+                        <button type="button" id="search_date_range_apod">
+                            Buscar por intervalo
+                        </button>
+                    </div>
 
                 </div>
 
-                <div id="search_result"></div>
+                <div id="search_result_apod"></div>
 
             </div>
 
         </section>
 
-        <section>
-
-            <h2>Asteroids - NeoWs</h2>
-
-            <p>NeoWs (Near Earth Object Web Service) é um serviço web RESTful para informações sobre asteroides próximos
-                à Terra. Com o NeoWs, o usuário pode: buscar asteroides com base na data de aproximação mais próxima da
-                Terra, consultar um asteroide específico com seu ID de corpo pequeno da NASA JPL, além de navegar pelo
-                conjunto de dados geral.</p>
-            
-            <div>
-
-                <div>
-                    <p>Pesquise por intervalo:</p>
-
-                    <p>Data inicial:</p>
-                    <input type="date" id="initial_date_field">
-
-                    <p>Data final:</p>
-                    <input type="date" id="end_date_field">
-
-                    <button type="button" id="search_date_range">
-                        Buscar por intervalo
-                    </button>
-                </div>
-
-                <div id="search_result_interval"></div>
-
-            </div>
-
-        </section>
-
+    
     </main>
 
     <footer>

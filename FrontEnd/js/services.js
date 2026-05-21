@@ -1,29 +1,57 @@
-const resultado = document.getElementById("search_result");
+const resultado = document.getElementById("search_result_apod");
 
-document.getElementById("search_data")
+document.getElementById("search_data_apod")
 .addEventListener("click", async () => {
 
-    const data = document.getElementById("data_field").value;
+    const date = document.getElementById("data_field_apod").value;
 
-    console.log("Data enviada:", data);
+    console.log("Data enviada:", date);
 
-    if (!data) {
+    if (!date) {
+
         alert("Informe uma data");
+
+        return;
+    }
+
+    const minDate = new Date("1995-06-16");
+
+    const currentDate = new Date()
+    .toISOString()
+    .split("T")[0];
+
+    const selectedDate = new Date(date);
+
+    if (selectedDate < minDate) {
+
+        alert(
+            "A data deve ser maior ou igual a 1995-06-16"
+        );
+
+        return;
+    }
+
+    if (selectedDate > currentDate) {
+
+        alert(
+            "A data não pode ser maior que a atual"
+        );
+
         return;
     }
 
     try {
-        console.log(data);
+        console.log(date);
 
         const resposta = await fetch(
-            `http://127.0.0.1:3000/nasa/apod/fotos?date=${data}`
+            `http://127.0.0.1:3000/nasa/apod/photo?date=${date}`
         );
 
-        const dados = await resposta.json();
+        const data = await resposta.json();
 
-        console.log("dados da chamada rest search_result:", dados);
+        console.log("dados da chamada rest search_result_apod:", data);
 
-        mostrarImagem(dados);
+        showImage(data);
 
     } catch (erro) {
 
@@ -34,30 +62,30 @@ document.getElementById("search_data")
 });
 
 
-function mostrarImagem(dados) {
+function showImage(data) {
 
     resultado.innerHTML = `
     
-        <h3>${dados.title}</h3>
+        <h3>${data.title}</h3>
 
         <img 
-            src="${dados.url}" 
-            alt="${dados.title}"
+            src="${data.url}" 
+            alt="${data.title}"
             width="500"
         >
     `;
 }
 
-const resultadoIntervalo = document.getElementById("search_result_interval");
+const resultadoIntervalo = document.getElementById("search_result_apod");
 
-document.getElementById("search_date_range")
+document.getElementById("search_date_range_apod")
     .addEventListener("click", async () => {
 
         const dataInicial =
-            document.getElementById("initial_date_field").value;
+            document.getElementById("initial_date_field_apod").value;
 
         const dataFinal =
-            document.getElementById("end_date_field").value;
+            document.getElementById("end_date_field_apod").value;
 
         if (!dataInicial || !dataFinal) {
 
@@ -69,7 +97,7 @@ document.getElementById("search_date_range")
         try {
 
             const resposta = await fetch(
-                `http://127.0.0.1:3000/nasa/asteroids?start_date=${dataInicial}&end_date=${dataFinal}`
+                `http://127.0.0.1:3000/nasa/apod/photos/interval?start_date=${dataInicial}&end_date=${dataFinal}`
             );
 
             const dados = await resposta.json();
@@ -85,20 +113,4 @@ document.getElementById("search_date_range")
         }
 
     });
-
-/*function mostrarImagem(dados) {
-
-    resultado.innerHTML = `
-    
-        <h2>${dados.title}</h2>
-
-        <img 
-            src="${dados.url}" 
-            alt="${dados.title}"
-            width="500"
-        >
-
-         <p>${dados.explanation}</p>
-
-    `;}*/
 

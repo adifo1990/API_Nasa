@@ -20,10 +20,10 @@ def search_photo(date: str):
 
     return response.json()
 
-def search_asteroids(start_date: str, end_date: str):
+def search_photos_interval(start_date: str, end_date: str):
     print("Datas recebidas buscar_asteroides:", start_date, end_date)
 
-    url = "https://api.nasa.gov/neo/rest/v1/feed"
+    url = "https://api.nasa.gov/planetary/apod"
 
     params = {
         "api_key": API_KEY,
