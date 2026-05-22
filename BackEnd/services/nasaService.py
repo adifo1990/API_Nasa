@@ -2,8 +2,8 @@ import requests
 
 API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
 
-def buscar_foto(date: str):
-    print("Data recebida:", date)
+def search_photo_APOD(date: str):
+    print("Data recebida APOD:", date)
 
     url = "https://api.nasa.gov/planetary/apod"
 
@@ -12,10 +12,10 @@ def buscar_foto(date: str):
         "date": date
     }
 
-    print("params:", params)
+    print("params APOD:", params)
 
-    resposta = requests.get(url, params=params)
+    response = requests.get(url, params=params)
 
-    print("resposta:", resposta)
+    print("resposta APOD:", response)
 
-    return resposta.json()
+    return response.json()

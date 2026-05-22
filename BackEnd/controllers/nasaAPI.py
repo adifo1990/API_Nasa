@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-import services.nasaService as nasa_service 
+import BackEnd.services.nasaService as nasa_service 
 
 router = APIRouter(prefix="/nasa")
 
