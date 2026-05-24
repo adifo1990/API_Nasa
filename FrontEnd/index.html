@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Nasa</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/services.js?v=1.1" defer></script>
+    <script type="module" src="./js/services.js"></script>
 </head>
 
 <body>
@@ -34,17 +34,39 @@
             <div>
                 <div>
 
-                    <div>
+                    <select id="search_mode">
+
+                        <option value="">Selecione</option>
+
+                        <option value="date">
+                            Buscar por data
+                        </option>
+
+                        <option value="interval">
+                            Buscar por intervalo
+                        </option>
+
+                        <option value="count">
+                            Buscar quantidade de imagens
+                        </option>
+
+                        <option value="thumbs">
+                            Buscar url de vídeo
+                        </option>
+
+                    </select>
+
+                    <div id="search_by_date" class="search_box">
                         <p>Informe data</p>
 
                         <input type="date" id="data_field_apod">
 
-                        <button type="button" id="search_data_apod">
+                        <button type="button" id="search_date_apod">
                             Buscar por data
                         </button>
                     </div>
 
-                    <div>
+                    <div id="search_by_interval" class="search_box">
                         <p>Pesquise por intervalo:</p>
 
                         <p>Data inicial:</p>
@@ -58,15 +80,32 @@
                         </button>
                     </div>
 
+                    <div id="search_by_count" class="search_box">
+                        <p>Digite número de imagens que deseja:</p>
+
+                        <input type="number" id="count_field_apod" min="1" max="100" step="1"
+                            placeholder="Digite o número de imagens">
+
+                        <button type="button" id="search_count_apod">
+                            Buscar por quantidade
+                        </button>
+
+                    </div>
+
+                    <div id="search_by_thumbs" class="search_box">
+                        <p>Buscar url de vídeo</p>
+                        <button type="button" id="search_thumbs_apod">
+                            Buscar url de vídeo
+                        </button>
+                    </div>
+
+                    <div id="search_result_apod"></div>
                 </div>
-
-                <div id="search_result_apod"></div>
-
             </div>
 
         </section>
 
-    
+
     </main>
 
     <footer>

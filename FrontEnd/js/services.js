@@ -1,9 +1,19 @@
+import { NasaApi } from "./nasa_rest.js";
+
+const nasa_api = new NasaApi();
+
 const resultado = document.getElementById("search_result_apod");
 
-document.getElementById("search_data_apod")
-.addEventListener("click", async () => {
+const search_mode = document.getElementById("search_mode");
 
-    const date = document.getElementById("data_field_apod").value;
+const sections = {
+    date: document.getElementById("search_by_date"),
+    interval: document.getElementById("search_by_interval"),
+    count: document.getElementById("search_by_count"),
+    thumbs: document.getElementById("search_by_thumbs")
+};
+
+function validate_date(date) {
 
     console.log("Data enviada:", date);
 
@@ -11,106 +21,274 @@ document.getElementById("search_data_apod")
 
         alert("Informe uma data");
 
-        return;
+        return false;
     }
 
-    const minDate = new Date("1995-06-16");
+    const min_date = "1995-06-16";
 
-    const currentDate = new Date()
-    .toISOString()
-    .split("T")[0];
+    const today = new Date().toISOString().split("T")[0];
 
-    const selectedDate = new Date(date);
+    if (date < min_date) {
 
-    if (selectedDate < minDate) {
+        alert("A data deve ser maior ou igual a 1995-06-16");
 
-        alert(
-            "A data deve ser maior ou igual a 1995-06-16"
-        );
-
-        return;
+        return false;
     }
 
-    if (selectedDate > currentDate) {
+    if (date >= today) {
 
-        alert(
-            "A data não pode ser maior que a atual"
-        );
+        alert("A data não pode ser maior ou igual a atual");
 
-        return;
+        return false;
     }
 
-    try {
-        console.log(date);
-
-        const resposta = await fetch(
-            `http://127.0.0.1:3000/nasa/apod/photo?date=${date}`
-        );
-
-        const data = await resposta.json();
-
-        console.log("dados da chamada rest search_result_apod:", data);
-
-        showImage(data);
-
-    } catch (erro) {
-
-        console.log("Erro:", erro);
-
-    }
-
-});
-
-
-function showImage(data) {
-
-    resultado.innerHTML = `
-    
-        <h3>${data.title}</h3>
-
-        <img 
-            src="${data.url}" 
-            alt="${data.title}"
-            width="500"
-        >
-    `;
+    return true;
 }
 
-const resultadoIntervalo = document.getElementById("search_result_apod");
+function validate_date_interval(initial_date, end_date) {
 
-document.getElementById("search_date_range_apod")
-    .addEventListener("click", async () => {
+    const min_date = "1995-06-16";
 
-        const dataInicial =
-            document.getElementById("initial_date_field_apod").value;
+    if (!initial_date || !end_date) {
 
-        const dataFinal =
-            document.getElementById("end_date_field_apod").value;
+        alert("Informe as datas");
 
-        if (!dataInicial || !dataFinal) {
+        return;
+    }
 
-            alert("Informe as datas");
+    const today = new Date().toISOString().split("T")[0];
+
+    if (initial_date < min_date) {
+
+        alert("A data inicial deve ser maior ou igual a 1995-06-16");
+
+        return false;
+    }
+
+    if (end_date >= today) {
+
+        alert("A data final não pode ser maior ou igual a atual");
+
+        return false;
+    }
+
+    if (initial_date > end_date) {
+
+        alert("A data inicial não pode ser maior que a data final");
+
+        return false;
+    }
+
+    return true;
+
+}
+
+function show_images(images) {
+
+    resultado.innerHTML = "";
+
+    if (!Array.isArray(images)) {
+        images = [images];
+    }
+
+    images.forEach((image) => {
+
+        if (image.media_type !== "image") {
+            return;
+        }
+
+        const div = document.createElement("div");
+
+        const title = document.createElement("h3");
+        title.textContent = image.title;
+
+        const img = document.createElement("img");
+
+        img.src = image.url;
+        img.alt = image.title;
+        img.width = 500;
+
+        img.onerror = () => {
+
+            img.remove();
+
+            const erro = document.createElement("p");
+
+            erro.textContent =
+                "Imagem indisponível";
+
+            div.appendChild(erro);
+        };
+
+        div.appendChild(title);
+        div.appendChild(img);
+
+        resultado.appendChild(div);
+    });
+}
+
+function validate_count(count) {
+
+    if (!count) {
+
+        alert("Informe uma quantidade entre 1 e 100");
+
+        return false;
+    }
+
+    if (count < 1) {
+
+        alert("A quantidade deve ser maior ou igual a 1");
+
+        return false;
+    }
+
+    if (count > 100) {
+
+        alert("A quantidade deve ser menor ou igual a 100");
+
+        return false;
+    }
+
+    return true;
+}
+
+function show_videos(videos) {
+
+    resultado.innerHTML = "";
+
+    if (!Array.isArray(videos)) {
+
+        videos = [videos];
+    }
+
+    videos.forEach((video) => {
+
+        if (video.media_type !== "video") {
 
             return;
         }
 
-        try {
+        const div = document.createElement("div");
 
-            const resposta = await fetch(
-                `http://127.0.0.1:3000/nasa/apod/photos/interval?start_date=${dataInicial}&end_date=${dataFinal}`
-            );
+        const title = document.createElement("h3");
 
-            const dados = await resposta.json();
+        title.textContent = video.title;
 
-            console.log("dados da chamada rest search_result_interval:", dados);
+        div.appendChild(title);
 
-            const objetos = dados.near_earth_objects;
+        const url = video.url;
 
-            console.log(objetos);
+        if (url.endsWith(".mp4")) {
 
-        } catch (erro) {
-            console.log("Erro:", erro);
+            const videoElement = document.createElement("video");
+
+            videoElement.src = url;
+
+            videoElement.width = 500;
+
+            videoElement.height = 300;
+
+            videoElement.controls = true;
+
+            div.appendChild(videoElement);
         }
+
+        else if (
+            url.includes("youtube.com")
+            || url.includes("youtu.be")
+        ) {
+
+            const iframe = document.createElement("iframe");
+
+            iframe.width = "500";
+
+            iframe.height = "300";
+
+            iframe.allowFullscreen = true;
+
+            iframe.src = convertYoutubeUrl(url);
+
+            div.appendChild(iframe);
+        }
+
+        resultado.appendChild(div);
+    });
+}
+
+search_mode.addEventListener("change", () => {
+
+    resultado.innerHTML = "";
+
+    Object.values(sections).forEach((section) => {
+        section.style.display = "none";
+    });
+
+    const selected = search_mode.value;
+
+    if (sections[selected]) {
+        sections[selected].style.display = "block";
+    }
+});
+
+document.getElementById("search_date_apod")
+    .addEventListener("click", async () => {
+
+        const date = document.getElementById("data_field_apod").value;
+
+        const is_valid_date = validate_date(date);
+
+        if (!is_valid_date) {
+
+            return;
+        }
+
+        show_images(
+            await nasa_api.search_date(date)
+        );
+    });
+
+
+document.getElementById("search_date_range_apod")
+    .addEventListener("click", async () => {
+
+        const initial_date =
+            document.getElementById("initial_date_field_apod").value;
+
+        const end_date =
+            document.getElementById("end_date_field_apod").value;
+
+        if (!validate_date_interval(initial_date, end_date)) {
+
+            return;
+        }
+
+        show_images(
+            await nasa_api.search_date_interval(initial_date, end_date)
+        );
 
     });
 
+document.getElementById("search_count_apod")
+    .addEventListener("click", async () => {
+        const count = document.getElementById("count_field_apod").value;
+
+        if (!validate_count(count)) {
+
+            return;
+        }
+
+        show_images(
+            await nasa_api.search_count(count)
+        );
+
+    });
+
+document.getElementById("search_thumbs_apod")
+    .addEventListener("click", async () => {
+        const thumbs = true;
+
+        show_videos(
+            await nasa_api.search_thumbs(thumbs)
+        );
+    });

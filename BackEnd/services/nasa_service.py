@@ -38,3 +38,39 @@ def search_photos_interval(start_date: str, end_date: str):
     print("resposta buscar_asteroides:", response)
 
     return response.json()
+
+def search_photos_count(count: int):
+    print("Contagem recebida search_photos_count:", count)
+
+    url = "https://api.nasa.gov/planetary/apod"
+
+    params = {
+        "api_key": API_KEY, 
+        "count": count
+    }
+
+    print("params search_photos_count:", params)
+
+    response = requests.get(url, params=params)
+
+    print("resposta search_photos_count:", response)
+
+    return response.json()       
+
+def search_photos_thumbs(thumbs: bool):
+    print("Contagem de thumbs recebida search_photos_thumbs:", thumbs)
+
+    url = "https://api.nasa.gov/planetary/apod"
+
+    params = {
+        "api_key": API_KEY, 
+        "thumbs": thumbs
+    }
+
+    print("params search_photos_thumbs:", params)
+
+    response = requests.get(url, params=params)
+
+    print("resposta search_photos_thumbs:", response)
+
+    return response.json()
