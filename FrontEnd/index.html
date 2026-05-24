@@ -22,13 +22,15 @@
         <section>
             <h2>APOD</h2>
 
-            <p>Um dos sites mais populares da NASA é o Astronomy Picture of the Day. Na verdade, este site é um dos mais
+            <p>
+                Um dos sites mais populares da NASA é o Astronomy Picture of the Day. Na verdade, este site é um dos mais
                 populares em todas as agências federais. Tem o apelo popular de um vídeo de Justin Bieber. Esse endpoint
                 estrutura as imagens APOD e os metadados associados para que possam ser reaproveitados para outras
                 aplicações. Além disso, se o parâmetro for definido para , então as palavras-chave derivadas da
                 explicação da imagem são retornadas. Essas palavras-chave podiam ser usadas como hashtags geradas
                 automaticamente para feeds do Twitter ou Instagram; mas geralmente ajudam na descoberta de imagens
-                relevantes.</p>
+                relevantes.
+            </p>
 
             <div>
                 <div>
@@ -41,6 +43,35 @@
                         Buscar por data
                     </button>
 
+                </div>
+
+                <div id="resultadoBusca"></div>
+
+            </div>
+            <hr>
+        </section>
+        <section>
+            <h2>NeoWs</h2>
+
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis cum officia consectetur quasi nisi. Aspernatur nam quae repellendus voluptatem distinctio quis ea ullam illum, deserunt odit natus ipsam quisquam fugiat?
+            </p>
+
+            <div>
+                <div>
+                    <label for="CampoDataInicial">infrome data inicial</label>
+                    <input type="date" id="CampoDataInicial">
+
+                    <label for="CampoDataFinal">infrome data final</label>
+                    <input type="date" id="CampoDataFinal">
+                    
+                    <button type="button" id="BuscarIntervalo">Buscar por Intervalo</button>
+                </div>
+                <div>
+                    <label for="CampoDataInicial">infrome o asteroide ID</label>
+                    <input type="date" id="CampoAsteroidID">
+                    
+                    <button type="button" id="BuscarAsteroidID">Buscar por ID</button>
                 </div>
 
                 <div id="resultadoBusca"></div>
