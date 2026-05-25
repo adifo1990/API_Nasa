@@ -1,4 +1,5 @@
 import requests
+from enums.search_mode import SearchMode
 
 API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
 
@@ -20,10 +21,15 @@ def search_photo(date: str):
 
     return response.json()
 
-def search_photos_interval(start_date: str, end_date: str):
-    print("Datas recebidas buscar_asteroides:", start_date, end_date)
+URLS = {
+    SearchMode.APOD.value: "https://api.nasa.gov/planetary/apod",
+    SearchMode.DONKI_CME.value: "https://api.nasa.gov/DONKI/CME"
+}
 
-    url = "https://api.nasa.gov/planetary/apod"
+def search_photos_interval(start_date: str, end_date: str, search_mode: str):
+    print("Datas recebidas busca intervalo:", start_date, end_date, search_mode)
+
+    url = URLS.get(search_mode)
 
     params = {
         "api_key": API_KEY,
@@ -31,11 +37,11 @@ def search_photos_interval(start_date: str, end_date: str):
         "end_date": end_date
     }
 
-    print("params buscar_asteroides:", params)
+    print("params busca intervalo:", params)
 
     response = requests.get(url, params=params)
 
-    print("resposta buscar_asteroides:", response)
+    print("resposta busca intervalo:", response)
 
     return response.json()
 
@@ -72,5 +78,24 @@ def search_photos_thumbs(thumbs: bool):
     response = requests.get(url, params=params)
 
     print("resposta search_photos_thumbs:", response)
+
+    return response.json()
+
+def search_photos_interval_donki(start_date: str, end_date: str, search_mode: str):
+    print("Datas recebidas buscar_asteroides_donki:", start_date, end_date)
+
+    url = "https://api.nasa.gov/DONKI/CME"
+
+    params = {
+        "api_key": API_KEY,
+        "start_date": start_date,
+        "end_date": end_date
+    }
+
+    print("params buscar_asteroides_donki:", params)
+
+    response = requests.get(url, params=params)
+
+    print("resposta buscar_asteroides_donki:", response)
 
     return response.json()

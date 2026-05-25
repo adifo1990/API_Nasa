@@ -24,6 +24,7 @@ app.include_router(nasa_router)
 
 app.mount("/css", StaticFiles(directory="../FrontEnd/css"), name="css")
 app.mount("/js", StaticFiles(directory="../FrontEnd/js"), name="js")
+app.mount("/pages", StaticFiles(directory="../FrontEnd/pages"), name="pages")
 
 if __name__ == "__main__":
     uvicorn.run(
