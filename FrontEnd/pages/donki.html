@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Nasa</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/services.js"></script>
+</head>
+
+<body>
+
+    <main>
+
+        <h1>DONKI: Banco de Dados de Clima Espacial de Notificações, Conhecimento e Informação</h1>
+
+        <a href="/">
+            Voltar ao menu principal
+        </a>
+
+    <p>
+        O Banco de Dados de Notificações, Conhecimento e Informação (DONKI) é uma ferramenta online abrangente
+        para meteorologistas, cientistas e a comunidade científica espacial em geral. O DONKI registra as
+        interpretações diárias de observações, análises, modelos, previsões e notificações de clima espacial
+        fornecidos pelo Space Weather Research Center (SWRC), funcionalidade abrangente de busca de base de
+        conhecimento para apoiar a resolução de anomalias e pesquisas em ciência espacial, conexões
+        inteligentes, relacionamentos, causas e efeitos entre atividades meteorológicas espaciais e acesso
+        abrangente da API de webservice às informações armazenadas no DONKI.
+    </p>
+
+        <div>
+                <div>
+
+                    <select id="search_mode_donki">
+
+                        <option value="">Selecione</option>
+
+                        <option value="interval_donki">
+                            Buscar por intervalo
+                        </option>
+
+                    </select>
+
+                    <div id="search_by_interval_donki" class="search_box">
+                        <p>Pesquise por intervalo:</p>
+
+                        <p>Data inicial:</p>
+                        <input type="date" id="initial_date_field_donki">
+
+                        <p>Data final:</p>
+                        <input type="date" id="end_date_field_donki">
+
+                         <button type="button" id="search_date_range_donki" onclick="
+                                    search_date_interval(
+                                        'initial_date_field_donki',
+                                        'end_date_field_donki',
+                                        SearchMode.DONKI_CME
+                                    )">
+                                     Buscar por intervalo
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 NASA APIs Explorer. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+
+</html>

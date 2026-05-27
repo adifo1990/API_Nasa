@@ -1,21 +1,31 @@
 import { NasaApi } from "./nasa_rest.js";
+import { SearchMode } from "./search_mode.js";
+
+window.search_date_interval =  search_date_interval;
+
+window.SearchMode = SearchMode;
 
 const nasa_api = new NasaApi();
 
 const resultado = document.getElementById("search_result_apod");
 
-const search_mode = document.getElementById("search_mode");
+const search_mode_apod = document.getElementById("search_mode_apod");
 
-const sections = {
+const search_mode_donki = document.getElementById("search_mode_donki");
+
+const sections_apod = {
     date: document.getElementById("search_by_date"),
     interval: document.getElementById("search_by_interval"),
     count: document.getElementById("search_by_count"),
     thumbs: document.getElementById("search_by_thumbs")
 };
 
+const sections_donki = {
+    interval_donki: document.getElementById("search_by_interval_donki")
+};
+
 function validate_date(date) {
 
-    console.log("Data enviada:", date);
 
     if (!date) {
 
@@ -216,20 +226,36 @@ function show_videos(videos) {
     });
 }
 
-search_mode.addEventListener("change", () => {
+search_mode_apod.addEventListener("change", () => {
 
     resultado.innerHTML = "";
 
-    Object.values(sections).forEach((section) => {
+    Object.values(sections_apod).forEach((section) => {
         section.style.display = "none";
     });
 
-    const selected = search_mode.value;
+    const selected = search_mode_apod.value;
 
-    if (sections[selected]) {
-        sections[selected].style.display = "block";
+    if (sections_apod[selected]) {
+        sections_apod[selected].style.display = "block";
     }
 });
+
+/*search_mode_donki.addEventListener("change", () => {
+
+    resultado.innerHTML = "";
+
+    Object.values(sections_donki).forEach((section) => {
+        section.style.display = "none";
+    });
+
+    const selected_donki = search_mode_donki.value;
+    console.log("Selected DONKI mode:", selected_donki);
+    console.log("Available DONKI sections:", sections_donki);
+    if (sections_donki[selected_donki]) {
+        sections_donki[selected_donki].style.display = "block";
+    }
+});*/
 
 document.getElementById("search_date_apod")
     .addEventListener("click", async () => {
@@ -249,26 +275,31 @@ document.getElementById("search_date_apod")
     });
 
 
-document.getElementById("search_date_range_apod")
-    .addEventListener("click", async () => {
+async function search_date_interval(
+    initial_date_id,
+    end_date_id,
+    search_mode
+) {
 
-        const initial_date =
-            document.getElementById("initial_date_field_apod").value;
+    const initial_date =
+        document.getElementById(initial_date_id).value;
 
-        const end_date =
-            document.getElementById("end_date_field_apod").value;
+    const end_date =
+        document.getElementById(end_date_id).value;
 
-        if (!validate_date_interval(initial_date, end_date)) {
+    if (!validate_date_interval(initial_date, end_date)) {
+        return;
+    }
 
-            return;
-        }
-
-        show_images(
-            await nasa_api.search_date_interval(initial_date, end_date)
-        );
-
-    });
-
+    show_images(
+        await nasa_api.search_date_interval(
+            initial_date,
+            end_date,
+            search_mode
+        )
+    );
+}
+    
 document.getElementById("search_count_apod")
     .addEventListener("click", async () => {
         const count = document.getElementById("count_field_apod").value;
