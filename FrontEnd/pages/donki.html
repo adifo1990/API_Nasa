@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Nasa</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script type="module" src="../js/services.js"></script>
+    
 </head>
 
 <body>
@@ -19,57 +19,98 @@
             Voltar ao menu principal
         </a>
 
-    <p>
-        O Banco de Dados de Notificações, Conhecimento e Informação (DONKI) é uma ferramenta online abrangente
-        para meteorologistas, cientistas e a comunidade científica espacial em geral. O DONKI registra as
-        interpretações diárias de observações, análises, modelos, previsões e notificações de clima espacial
-        fornecidos pelo Space Weather Research Center (SWRC), funcionalidade abrangente de busca de base de
-        conhecimento para apoiar a resolução de anomalias e pesquisas em ciência espacial, conexões
-        inteligentes, relacionamentos, causas e efeitos entre atividades meteorológicas espaciais e acesso
-        abrangente da API de webservice às informações armazenadas no DONKI.
-    </p>
+        <p>
+            O Banco de Dados de Notificações, Conhecimento e Informação (DONKI) é uma ferramenta online abrangente
+            para meteorologistas, cientistas e a comunidade científica espacial em geral. O DONKI registra as
+            interpretações diárias de observações, análises, modelos, previsões e notificações de clima espacial
+            fornecidos pelo Space Weather Research Center (SWRC), funcionalidade abrangente de busca de base de
+            conhecimento para apoiar a resolução de anomalias e pesquisas em ciência espacial, conexões
+            inteligentes, relacionamentos, causas e efeitos entre atividades meteorológicas espaciais e acesso
+            abrangente da API de webservice às informações armazenadas no DONKI.
+        </p>
 
         <div>
-                <div>
+            <div>
 
-                    <select id="search_mode_donki">
+                <select id="search_mode_donki">
 
-                        <option value="">Selecione</option>
+                    <option value="">Selecione API</option>
 
-                        <option value="interval_donki">
-                            Buscar por intervalo
-                        </option>
+                    <option value="valor_1">
+                        Ejeção de Massa Coronal
+                    </option>
 
-                    </select>
+                    <option value="valor_2">
+                        Valor 2
+                    </option>
 
-                    <div id="search_by_interval_donki" class="search_box">
-                        <p>Pesquise por intervalo:</p>
+                    <option value="valor_3">
+                        Valor 3
+                    </option>
 
-                        <p>Data inicial:</p>
-                        <input type="date" id="initial_date_field_donki">
+                    <option value="valor_4">
+                        Valor 4
+                    </option>
 
-                        <p>Data final:</p>
-                        <input type="date" id="end_date_field_donki">
+                    <option value="valor_5">
+                        Valor 5
+                    </option>
 
-                         <button type="button" id="search_date_range_donki" onclick="
+                    <option value="valor_6">
+                        Valor 6
+                    </option>
+
+                    <option value="valor_7">
+                        Valor 7
+                    </option>
+
+                    <option value="valor_8">
+                        Valor 8
+                    </option>
+
+                    <option value="valor_9">
+                        Valor 9
+                    </option>
+
+                    <option value="valor_10">
+                        Valor 10
+                    </option>
+
+                    <option value="valor_11">
+                        Valor 11
+                    </option>
+
+                </select>
+
+                <div id="search_by_interval_donki" class="search_box">
+                    <p>Pesquise por intervalo:</p>
+
+                    <p>Data inicial:</p>
+                    <input type="date" id="initial_date_field_donki">
+
+                    <p>Data final:</p>
+                    <input type="date" id="end_date_field_donki">
+
+                    <button type="button" id="search_date_range_donki" onclick="
                                     search_date_interval(
                                         'initial_date_field_donki',
                                         'end_date_field_donki',
                                         SearchMode.DONKI_CME
                                     )">
-                                     Buscar por intervalo
-                        </button>
-                    </div>
-
+                        Buscar por intervalo
+                    </button>
                 </div>
+
+                <div id="search_result_donki"></div>
             </div>
+        </div>
 
     </main>
 
     <footer>
         <p>&copy; 2023 NASA APIs Explorer. Todos os direitos reservados.</p>
     </footer>
-
+    <script type="module" src="../js/services.js"></script>
 </body>
 
 </html>

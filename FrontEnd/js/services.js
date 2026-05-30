@@ -7,7 +7,9 @@ window.SearchMode = SearchMode;
 
 const nasa_api = new NasaApi();
 
-const resultado = document.getElementById("search_result_apod");
+const result_apod = document.getElementById("search_result_apod");
+
+const result_donki = document.getElementById("search_result_donki");
 
 const search_mode_apod = document.getElementById("search_mode_apod");
 
@@ -93,9 +95,9 @@ function validate_date_interval(initial_date, end_date) {
 
 }
 
-function show_images(images) {
+function show_images(images,search_mode) {
 
-    resultado.innerHTML = "";
+    result_element.innerHTML = "";
 
     if (!Array.isArray(images)) {
         images = [images];
@@ -133,7 +135,7 @@ function show_images(images) {
         div.appendChild(title);
         div.appendChild(img);
 
-        resultado.appendChild(div);
+        result_apod.appendChild(div);
     });
 }
 
@@ -228,7 +230,7 @@ function show_videos(videos) {
 
 search_mode_apod.addEventListener("change", () => {
 
-    resultado.innerHTML = "";
+    result_apod.innerHTML = "";
 
     Object.values(sections_apod).forEach((section) => {
         section.style.display = "none";
@@ -243,7 +245,7 @@ search_mode_apod.addEventListener("change", () => {
 
 /*search_mode_donki.addEventListener("change", () => {
 
-    resultado.innerHTML = "";
+    resultado_donki.innerHTML = "";
 
     Object.values(sections_donki).forEach((section) => {
         section.style.display = "none";
