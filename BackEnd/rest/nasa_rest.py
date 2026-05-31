@@ -1,87 +1,196 @@
+from urllib import response
+
 import requests
-from enums.search_mode import SearchMode
+#from enums.search_mode import SearchMode
 
 API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
 
-def search_photo(date: str):
-    print("Data recebida APOD:", date)
+def apod_search_nasa_photo(date: str):
+    try:
+        print("1 - Iniciando requisição NASA")
 
-    url = "https://api.nasa.gov/planetary/apod"
+        response = requests.get(
+            "https://api.nasa.gov/planetary/apod",
+            params={
+                "api_key": API_KEY,
+                "date": date
+            },
+            timeout=30
+        )
 
-    params = {
-        "api_key": API_KEY,
-        "date": date
-    }
+        print("2 - Requests retornou")
 
-    print("params APOD:", params)
+        response.raise_for_status()
 
-    response = requests.get(url, params=params)
+        print("3 - Status OK")
 
-    print("resposta APOD:", response)
+        data = response.json()
 
-    return response.json()
+        print("4 - JSON convertido")
 
-URLS = {
-    SearchMode.APOD.value: "https://api.nasa.gov/planetary/apod",
-    SearchMode.DONKI_CME.value: "https://api.nasa.gov/DONKI/CME"
-}
+        print(f"Quantidade de fotos retornadas: {len(data)}")
 
-def search_photos_interval(start_date: str, end_date: str, search_mode: str):
-    print("Datas recebidas busca intervalo:", start_date, end_date, search_mode)
+        return data
 
-    url = URLS.get(search_mode)
+    except requests.HTTPError as e:
+        return {
+            "success": False,
+            "status_code": e.response.status_code,
+            "message": e.response.reason
+        }
 
-    params = {
-        "api_key": API_KEY,
-        "start_date": start_date,
-        "end_date": end_date
-    }
+    except requests.Timeout:
+        return {
+            "success": False,
+            "message": "Timeout ao acessar a API da NASA"
+        }
 
-    print("params busca intervalo:", params)
+    except requests.RequestException as e:
+        return {
+            "success": False,
+            "message": str(e)
+        }
 
-    response = requests.get(url, params=params)
+def apod_search_nasa_photos_interval(start_date: str, end_date: str):
+    try:
+        print("1 - Iniciando requisição NASA (intervalo)")
 
-    print("resposta busca intervalo:", response)
+        response = requests.get(
+            "https://api.nasa.gov/planetary/apod",
+            params={
+                "api_key": API_KEY,
+                "start_date": start_date,
+                "end_date": end_date
+            },
+            timeout=30
+        )
 
-    return response.json()
+        print("2 - Requests retornou")
 
-def search_photos_count(count: int):
-    print("Contagem recebida search_photos_count:", count)
+        response.raise_for_status()
 
-    url = "https://api.nasa.gov/planetary/apod"
+        print("3 - Status OK")
 
-    params = {
-        "api_key": API_KEY, 
-        "count": count
-    }
+        data = response.json()
 
-    print("params search_photos_count:", params)
+        print("4 - JSON convertido")
+        print(f"Quantidade de fotos retornadas: {len(data)}")
 
-    response = requests.get(url, params=params)
 
-    print("resposta search_photos_count:", response)
+        return data
 
-    return response.json()       
+    except requests.HTTPError as e:
+        return {
+            "success": False,
+            "status_code": e.response.status_code,
+            "message": e.response.reason
+        }
 
-def search_photos_thumbs(thumbs: bool):
-    print("Contagem de thumbs recebida search_photos_thumbs:", thumbs)
+    except requests.Timeout:
+        return {
+            "success": False,
+            "message": "Timeout ao acessar a API da NASA"
+        }
 
-    url = "https://api.nasa.gov/planetary/apod"
+    except requests.RequestException as e:
+        return {
+            "success": False,
+            "message": str(e)
+        }
 
-    params = {
-        "api_key": API_KEY, 
-        "thumbs": thumbs
-    }
+def apod_search_nasa_photos_count(count: int):
+    try:
+        print("1 - Iniciando requisição NASA (count)")
 
-    print("params search_photos_thumbs:", params)
+        response = requests.get(
+            "https://api.nasa.gov/planetary/apod",
+            params={
+                "api_key": API_KEY,
+                "count": count
+            },
+            timeout=30
+        )
 
-    response = requests.get(url, params=params)
+        print("2 - Requests retornou")
 
-    print("resposta search_photos_thumbs:", response)
+        response.raise_for_status()
 
-    return response.json()
+        print("3 - Status OK")
 
-def search_photos_interval_donki(start_date: str, end_date: str, search_mode: str):
+        data = response.json()
+
+        print("4 - JSON convertido")
+
+        print(f"Quantidade de fotos retornadas: {len(data)}")
+
+        return data
+
+    except requests.HTTPError as e:
+        return {
+            "success": False,
+            "status_code": e.response.status_code,
+            "message": e.response.reason
+        }
+
+    except requests.Timeout:
+        return {
+            "success": False,
+            "message": "Timeout ao acessar a API da NASA"
+        }
+
+    except requests.RequestException as e:
+        return {
+            "success": False,
+            "message": str(e)
+        }
+
+def apod_search_nasa_photos_thumbs(thumbs: bool):
+    try:
+        print("1 - Iniciando requisição NASA (thumbs)")
+
+        response = requests.get(
+            "https://api.nasa.gov/planetary/apod",
+            params={
+                "api_key": API_KEY,
+                "thumbs": thumbs
+            },
+            timeout=30
+        )
+
+        print("2 - Requests retornou")
+
+        response.raise_for_status()
+
+        print("3 - Status OK")
+
+        data = response.json()
+
+        print("4 - JSON convertido")
+
+        print(f"Thumbs solicitado: {thumbs}")
+
+        return data
+
+    except requests.HTTPError as e:
+        return {
+            "success": False,
+            "status_code": e.response.status_code,
+            "message": e.response.reason
+        }
+
+    except requests.Timeout:
+        return {
+            "success": False,
+            "message": "Timeout ao acessar a API da NASA"
+        }
+
+    except requests.RequestException as e:
+        return {
+            "success": False,
+            "message": str(e)
+        }
+
+#def donki_search_nasa_photos_interval(start_date: str, end_date: str):
     print("Datas recebidas buscar_asteroides_donki:", start_date, end_date)
 
     url = "https://api.nasa.gov/DONKI/CME"
