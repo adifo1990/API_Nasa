@@ -294,14 +294,14 @@ document.getElementById("search_thumbs_apod")
     });
 
 /*NeoWs*/
-
 document.getElementById("BuscarIntervalo")
 .addEventListener("click", async () => {
 
     const dataInicial = document.getElementById("CampoDataInicial").value;
     const dataFinal = document.getElementById("CampoDataFinal").value;
 
-    console.log("Data enviada:", dataInicial);
+    console.log("Data inical enviada:", dataInicial);
+    console.log("Data final enviada:", dataFinal);
 
     if (!dataInicial) {
         alert("Informe uma data inical");
@@ -313,10 +313,56 @@ document.getElementById("BuscarIntervalo")
     }
 
     try {
-        console.log(dataInicial);
-
         const resposta = await fetch(
            `https://api.nasa.gov/neo/rest/v1/feed?start_date=${dataInicial}&end_date=${dataFinal}`
+        );
+
+        const dados = await resposta.json();
+
+        console.log("dados da chamada rest:", dados);
+
+        mostrarImagem(dados);
+
+    } catch (erro) {
+        console.log("Erro:", erro);
+    }
+});
+
+document.getElementById("BuscarAsteroidID")
+.addEventListener("click", async () => {
+
+    const asteroidId = document.getElementById("CampoAsteroidID").value;
+
+    console.log("ID enviado:", asteroidId);
+
+    if (!asteroidId) {
+        alert("Informe um ID");
+        return;
+    }
+
+    try {
+
+        const resposta = await fetch(
+           `https://api.nasa.gov/neo/rest/v1/neo/${asteroidId}?`
+        );
+
+        const dados = await resposta.json();
+
+        console.log("dados da chamada rest:", dados);
+
+        mostrarImagem(dados);
+
+    } catch (erro) {
+        console.log("Erro:", erro);
+    }
+});
+
+document.getElementById("BuscarTodos")
+.addEventListener("click", async () => {
+
+    try {
+        const resposta = await fetch(
+           `https://api.nasa.gov/neo/rest/v1/neo/browse`
         );
 
         const dados = await resposta.json();
