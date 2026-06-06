@@ -3,17 +3,24 @@ from datetime import date, datetime, timedelta
 import BackEnd.rest.nasa_rest_donki as nasa_rest_donki
 
 
-def donki_cme_validate_interval(start_date: str, end_date: str):
-
+def validate_date_interval(start_date: str,end_date: str, default_days: int):
     if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
+        start_date = (
+            date.today() - timedelta(days=default_days)
+        ).strftime("%Y-%m-%d")
 
     if not end_date:
         end_date = date.today().strftime("%Y-%m-%d")
 
     try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
+        start_date_received = datetime.strptime(
+            start_date, "%Y-%m-%d"
+        ).date()
+
+        end_date_received = datetime.strptime(
+            end_date, "%Y-%m-%d"
+        ).date()
+
     except ValueError:
         return False
 
@@ -27,6 +34,16 @@ def donki_cme_validate_interval(start_date: str, end_date: str):
         return False
 
     return True
+
+def donki_cme_validate_interval(
+    start_date: str,
+    end_date: str
+):
+    return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
 
 def donki_cme_analysis_validate(start_date: str, end_date: str, most_accurate_only: bool, 
                                 complete_entry_only: bool, speed: int, half_angle: int, catalog: str, keyword: str):
@@ -95,28 +112,11 @@ def donki_cme_analysis_validate(start_date: str, end_date: str, most_accurate_on
 
 def donki_gst_validate_interval(start_date: str, end_date: str):
 
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        return False
-
-    if start_date_received > date.today():
-        return False
-
-    if end_date_received > date.today():
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
+    return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )   
 
 def donki_ips_validate_interval(start_date: str, end_date: str, location: str, catalog: str):
     
@@ -173,135 +173,43 @@ def donki_ips_validate_interval(start_date: str, end_date: str, location: str, c
 
 def donki_flr_validate_interval(start_date: str, end_date: str):
     
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        
-        return False
-
-    if start_date_received > date.today():
-        
-        return False
-
-    if end_date_received > date.today():
-        
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
+    return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
     
 def donki_sep_validate_interval(start_date: str, end_date: str):
     
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
+    return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
 
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        
-        return False
-
-    if start_date_received > date.today():
-        return False
-
-    if end_date_received > date.today():
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
-
-def donki_mpc_validate_interval(start_date: str, end_date: str):
+def donki_mpc_validate_interval(start_date: str, end_date: str): 
     
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        
-        return False
-
-    if start_date_received > date.today():
-        return False
-
-    if end_date_received > date.today():
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
+    return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
 
 def donki_rbe_validate_interval(start_date: str, end_date: str):
     
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        
-        return False
-
-    if start_date_received > date.today():
-        return False
-
-    if end_date_received > date.today():
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
+   return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
 
 def donki_hss_validate_interval(start_date: str, end_date: str):
     
-    if not start_date:
-        start_date = (date.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-
-    if not end_date:
-        end_date = date.today().strftime("%Y-%m-%d")
-
-    try:
-        start_date_received = datetime.strptime(start_date, "%Y-%m-%d").date()
-        end_date_received = datetime.strptime(end_date, "%Y-%m-%d").date()
-    except ValueError:
-        
-        return False
-
-    if start_date_received > date.today():
-        return False
-
-    if end_date_received > date.today():
-        return False
-
-    if start_date_received > end_date_received:
-        return False
-
-    return True
+   return validate_date_interval(
+        start_date,
+        end_date,
+        default_days=30
+    )
 
 def donki_wsaenlilsimulation_validate_interval(start_date: str, end_date: str):
     

@@ -11,8 +11,8 @@ def donki_cme_search_nasa_cme(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/CME",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -56,8 +56,8 @@ def donki_cme_analysis_search_nasa_cme_analysis(start_date: str, end_date: str, 
             "https://api.nasa.gov/DONKI/CMEAnalysis",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date,
+                "startDate": start_date,
+                "endDate": end_date,
                 "most_accurate_only": most_accurate_only,
                 "complete_entry_only": complete_entry_only,
                 "speed": speed,
@@ -107,8 +107,8 @@ def donki_gst_search_nasa_gst(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/GST",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -152,8 +152,8 @@ def donki_ips_search_nasa_ips(start_date: str, end_date: str, location: str, cat
             "https://api.nasa.gov/DONKI/IPS",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date,
+                "startDate": start_date,
+                "endDate": end_date,
                 "location": location,
                 "catalog": catalog
             },
@@ -199,8 +199,8 @@ def donki_flr_search_nasa_flr(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/FLR",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -244,8 +244,8 @@ def donki_sep_search_nasa_sep(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/SEP",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -289,8 +289,8 @@ def donki_mpc_search_nasa_mpc(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/MPC",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -334,8 +334,8 @@ def donki_rbe_search_nasa_rbe(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/RBE",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -379,8 +379,8 @@ def donki_hss_search_nasa_hss(start_date: str, end_date: str):
             "https://api.nasa.gov/DONKI/HSS",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -424,8 +424,8 @@ def donki_wsaenlilsimulation_search_nasa_wsaenlilsimulation(start_date: str, end
             "https://api.nasa.gov/DONKI/WSAEnlilSimulations",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date
+                "startDate": start_date,
+                "endDate": end_date
             },
             timeout=30
         )
@@ -467,8 +467,8 @@ def donki_notification_search_nasa_notification(start_date: str, end_date: str, 
             "https://api.nasa.gov/DONKI/notifications",
             params={
                 "api_key": API_KEY,
-                "start_date": start_date,
-                "end_date": end_date,
+                "startDate": start_date,
+                "endDate": end_date,
                 "type": type
             },
             timeout=30
