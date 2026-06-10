@@ -1,8 +1,9 @@
 from fastapi import HTTPException
+from BackEnd.config import NASA_API_KEY
 
 import requests
 
-API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
+
         
 def insight_search_nasa_insight():
     try:
@@ -10,7 +11,7 @@ def insight_search_nasa_insight():
         response = requests.get(
             "https://api.nasa.gov/insight_weather/?",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "feedtype": "json",
                 "version": "1.0"
             },

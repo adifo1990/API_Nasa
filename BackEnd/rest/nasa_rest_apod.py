@@ -1,8 +1,8 @@
 from fastapi import HTTPException
+from BackEnd.config import NASA_API_KEY
 
 import requests
 
-API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
 
 def apod_search_nasa_photo(date: str):
     try:
@@ -10,12 +10,12 @@ def apod_search_nasa_photo(date: str):
         response = requests.get(
             "https://api.nasa.gov/planetary/apod",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "date": date
             },
             timeout=30
         )
-
+        print("NASA_API_KEY:", NASA_API_KEY)
         response.raise_for_status()
 
         data = response.json()
@@ -52,7 +52,7 @@ def apod_search_nasa_photos_interval(start_date: str, end_date: str):
         response = requests.get(
             "https://api.nasa.gov/planetary/apod",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "start_date": start_date,
                 "end_date": end_date
             },
@@ -95,7 +95,7 @@ def apod_search_nasa_photos_count(count: int):
         response = requests.get(
             "https://api.nasa.gov/planetary/apod",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "count": count
             },
             timeout=30
@@ -137,7 +137,7 @@ def apod_search_nasa_photos_thumbs(thumbs: bool):
         response = requests.get(
             "https://api.nasa.gov/planetary/apod",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "thumbs": thumbs
             },
             timeout=30

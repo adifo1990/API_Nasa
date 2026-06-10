@@ -1,8 +1,9 @@
 from fastapi import HTTPException
+from BackEnd.config import NASA_API_KEY
 
 import requests
 
-API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
+
 
 def neo_feed_search_nasa_asteroids_interval(start_date: str, end_date: str):
     try:
@@ -10,7 +11,7 @@ def neo_feed_search_nasa_asteroids_interval(start_date: str, end_date: str):
         response = requests.get(
             "https://api.nasa.gov/neo/rest/v1/feed",
             params={
-                "api_key": API_KEY,
+                "api_key": NASA_API_KEY,
                 "start_date": start_date,
                 "end_date": end_date
             },
@@ -52,7 +53,7 @@ def neo_lookup_search_nasa_asteroid(asteroid_id: int):
         response = requests.get(
             f"https://api.nasa.gov/neo/rest/v1/neo/{asteroid_id}",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -91,7 +92,7 @@ def neo_browse_search_nasa_asteroids():
     try:
         response = requests.get(
             "https://api.nasa.gov/neo/rest/v1/neo/browse",
-            params={"api_key": API_KEY},
+            params={"api_key": NASA_API_KEY},
             timeout=30
         )
 

@@ -1,15 +1,15 @@
 from fastapi import HTTPException
+from BackEnd.config import NASA_API_KEY
 
 import requests
 
-API_KEY = "hzBb8xbURx2RqGRLfy8b1JrNrfIcuA2RgYbZFGWw"
 
 def epic_search_nasa_epic_natural():
     try:
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/natural",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -49,7 +49,7 @@ def epic_search_nasa_epic_natural_by_date(date: str):
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/natural/date/{date}".format(date=date),
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -89,7 +89,7 @@ def epic_search_nasa_epic_natural_all():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/natural/all",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -129,7 +129,7 @@ def epic_search_nasa_epic_natural_available():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/natural/available",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -169,7 +169,7 @@ def epic_search_nasa_epic_enhanced():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/enhanced",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -209,7 +209,7 @@ def epic_search_nasa_epic_enhanced_by_date(date: str):
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/enhanced/date/{date}".format(date=date),
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -249,7 +249,7 @@ def epic_search_nasa_epic_enhanced_all():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/enhanced/all",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -289,7 +289,7 @@ def epic_search_nasa_epic_enhanced_available():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/enhanced/available",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -329,7 +329,7 @@ def epic_search_nasa_epic_aerosol():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/aerosol",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -369,7 +369,7 @@ def epic_search_nasa_epic_aerosol_by_date(date: str):
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/aerosol/date/{date}".format(date=date),
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -409,7 +409,7 @@ def epic_search_nasa_epic_aerosol_all():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/aerosol/all",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -449,7 +449,7 @@ def epic_search_nasa_epic_aerosol_available():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/aerosol/available",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -489,7 +489,7 @@ def epic_search_nasa_epic_cloud():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/cloud",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -529,7 +529,7 @@ def epic_search_nasa_epic_cloud_by_date(date: str):
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/cloud/date/{date}".format(date=date),
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -569,7 +569,7 @@ def epic_search_nasa_epic_cloud_all():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/cloud/all",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
@@ -609,7 +609,7 @@ def epic_search_nasa_epic_cloud_available():
         response = requests.get(
             "https://api.nasa.gov/EPIC/api/cloud/available",
             params={
-                "api_key": API_KEY
+                "api_key": NASA_API_KEY
             },
             timeout=30
         )
