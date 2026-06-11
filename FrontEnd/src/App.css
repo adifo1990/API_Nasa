@@ -85,8 +85,16 @@
   }
 }
 
+#resposta 
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
 .cartão
   ul {
+  flex-wrap: wrap;
   list-style: none;
   padding: 0;
   display: flex;
@@ -111,6 +119,18 @@
     text-decoration: none;
   }
 
+  select {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
   @media (max-width: 1024px) {
     margin-top: 20px;
     flex-wrap: wrap;
@@ -121,6 +141,12 @@
     }
 
     input {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    select {
       width: 100%;
       justify-content: center;
       box-sizing: border-box;
