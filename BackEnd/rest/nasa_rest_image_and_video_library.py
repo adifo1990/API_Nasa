@@ -63,3 +63,114 @@ def image_and_video_library_search(q: str, center: str = None, description: str 
             status_code=503,
             detail=f"Falha de comunicação com a API da NASA: {str(e)}"
         )
+        
+def image_and_video_library_search_asset_nasa_id_rest(nasa_id: str):
+    try:
+        response = requests.get(
+            f"https://images-api.nasa.gov/asset/{nasa_id}",
+             timeout=30
+        )
+
+        response.raise_for_status()
+        
+        data = response.json()
+
+        return data
+
+    except requests.HTTPError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Erro retornado pela NASA: {e.response.reason}"
+        )
+
+    except requests.Timeout:
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout ao acessar a API da NASA"
+        )
+
+    except ValueError:
+        raise HTTPException(
+            status_code=502,
+            detail="Resposta inválida recebida da API da NASA"
+        )
+
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Falha de comunicação com a API da NASA: {str(e)}"
+        )
+        
+def image_and_video_library_search_metadata_nasa_id_rest(nasa_id: str):
+    try:
+        response = requests.get(
+            f"https://images-api.nasa.gov/metadata/{nasa_id}",
+             timeout=30
+        )
+
+        response.raise_for_status()
+        
+        data = response.json()
+
+        return data
+
+    except requests.HTTPError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Erro retornado pela NASA: {e.response.reason}"
+        )
+
+    except requests.Timeout:
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout ao acessar a API da NASA"
+        )
+
+    except ValueError:
+        raise HTTPException(
+            status_code=502,
+            detail="Resposta inválida recebida da API da NASA"
+        )
+
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Falha de comunicação com a API da NASA: {str(e)}"
+        )
+        
+def image_and_video_library_search_captions_nasa_id_rest(nasa_id: str):
+    try:
+        response = requests.get(
+            f"https://images-api.nasa.gov/captions/{nasa_id}",
+             timeout=30
+        )
+
+        response.raise_for_status()
+        
+        data = response.json()
+
+        return data
+
+    except requests.HTTPError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"Erro retornado pela NASA: {e.response.reason}"
+        )
+
+    except requests.Timeout:
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout ao acessar a API da NASA"
+        )
+
+    except ValueError:
+        raise HTTPException(
+            status_code=502,
+            detail="Resposta inválida recebida da API da NASA"
+        )
+
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Falha de comunicação com a API da NASA: {str(e)}"
+        )
