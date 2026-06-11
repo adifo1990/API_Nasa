@@ -5,15 +5,13 @@ from BackEnd.controllers.nasa_api_donki import router as donki_router
 from BackEnd.controllers.nasa_api_epic import router as epic_router
 from BackEnd.controllers.nasa_api_insight import router as insight_router
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 
 import uvicorn
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -31,9 +29,7 @@ app.include_router(epic_router)
 app.include_router(insight_router)
 
 
-app.mount("/css", StaticFiles(directory="FrontEnd/css"), name="css")
-app.mount("/js", StaticFiles(directory="FrontEnd/js"), name="js")
-app.mount("/pages", StaticFiles(directory="FrontEnd/pages"), name="pages")
+
 
 if __name__ == "__main__":
     uvicorn.run(
@@ -43,6 +39,4 @@ if __name__ == "__main__":
         reload=True
     )
 
-@app.get("/")
-def home():
-    return FileResponse("../FrontEnd/index.html")
+

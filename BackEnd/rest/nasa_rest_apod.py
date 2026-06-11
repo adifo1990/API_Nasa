@@ -15,7 +15,7 @@ def apod_search_nasa_photo(date: str):
             },
             timeout=30
         )
-        print("NASA_API_KEY:", NASA_API_KEY)
+        
         response.raise_for_status()
 
         data = response.json()
