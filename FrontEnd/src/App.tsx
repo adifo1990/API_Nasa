@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import Cartao_neo from './cartoes/neo/cartao_neo'
-import Cartao_apod from './cartoes/apod/cartao_apod';
+import Cartao_neo from './cartoes/cartao_neo'
+import Cartao_apod from './cartoes/cartao_apod'
+import Cartao_donki from './cartoes/cartao_donki'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,6 +30,28 @@ function App() {
       <div className='separacao'></div>
       
       <Cartao_neo></Cartao_neo>
+
+      <div className='separacao'></div>
+
+      <Cartao_donki></Cartao_donki>
+
+      <div className='separacao'></div>
+
+
+
+      <div className='separacao'></div>
+
+
+
+      <div className='separacao'></div>
+
+
+
+      <div className='separacao'></div>
+
+
+
+      <div className='separacao'></div>
     </>
   )
 }
