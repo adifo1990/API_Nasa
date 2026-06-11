@@ -1,3 +1,253 @@
+# API NASA — Documentação do Projeto
+
+Aplicação full-stack para consulta de dados da API pública da NASA. O frontend React se comunica exclusivamente com o backend FastAPI, que por sua vez acessa a NASA — o frontend nunca faz chamadas diretas à NASA.
+
+---
+
+## Estrutura do Projeto
+
+```
+API_Nasa/
+├── BackEnd/
+│   ├── main.py                         # Entrada da aplicação, registro de routers e CORS
+│   ├── config.py                       # Carrega a API key do arquivo .env
+│   ├── api_key.env                     # Chave de acesso à API da NASA (não versionar)
+│   ├── controllers/                    # Rotas FastAPI (camada HTTP)
+│   ├── services/                       # Validações e regras de negócio
+│   └── rest/                           # Chamadas HTTP à API da NASA
+└── FrontEnd/
+    └── src/
+        ├── App.tsx                     # Componente raiz
+        ├── App.css                     # Estilos globais
+        └── cartoes/                    # Um componente por módulo da NASA
+            ├── cartao_apod.tsx
+            ├── cartao_neo.tsx
+            ├── cartao_donki.tsx
+            ├── cartao_epic.tsx
+            ├── cartao_insight.tsx
+            └── cartao_image_and_video_library.tsx
+```
+
+---
+
+## Pré-requisitos
+
+- Python 3.10+
+- Node.js 18+
+- Chave de API da NASA — obtenha gratuitamente em https://api.nasa.gov
+
+---
+
+## Instalação e Execução
+
+### Backend
+
+```bash
+# Na raiz do projeto
+pip install fastapi uvicorn requests python-dotenv
+
+# Crie o arquivo com sua chave
+echo "NASA_API_KEY=sua_chave_aqui" > BackEnd/api_key.env
+
+# Inicie o servidor (porta 3000)
+python -m BackEnd.main
+```
+
+### Frontend
+
+```bash
+cd FrontEnd
+npm install
+npm run dev
+# Acesse http://localhost:5173
+```
+
+> O backend precisa estar rodando antes de usar o frontend.
+
+---
+
+## Arquitetura
+
+### Fluxo de uma requisição
+
+```
+Usuário (browser)
+      ↓  preenche formulário e clica "Buscar"
+cartao_*.tsx  →  fetch(`http://localhost:3000/nasa/...`)
+      ↓
+FastAPI Controller  →  Service (validação)  →  Rest (chama NASA)
+      ↓
+NASA API  →  JSON  →  FastAPI  →  Frontend  →  <pre> na tela
+```
+
+### Camadas do Backend
+
+| Camada | Pasta | Responsabilidade |
+|---|---|---|
+| Controller | `controllers/` | Define as rotas GET e recebe os parâmetros HTTP |
+| Service | `services/` | Valida os parâmetros antes de chamar a NASA |
+| Rest | `rest/` | Executa o `requests.get()` para a NASA e trata erros HTTP |
+
+### Padrão dos Cartões (Frontend)
+
+Todo cartão segue o mesmo padrão:
+
+```tsx
+type Modo = 'rota_a' | 'rota_b'
+
+const urls: Record<Modo, string> = {
+    rota_a: `${BASE_URL}/modulo/rota_a?param=${estado}`,
+    rota_b: `${BASE_URL}/modulo/rota_b/${estado}`,
+}
+
+async function buscar(e: React.FormEvent, modo: Modo) {
+    e.preventDefault()
+    const res = await fetch(urls[modo])
+    const data = await res.json()
+    setResultado(data)
+}
+
+// No JSX:
+<form onSubmit={e => buscar(e, 'rota_a')}>
+```
+
+---
+
+## Endpoints Disponíveis
+
+Base URL do backend: `http://localhost:3000`
+
+---
+
+### APOD — Astronomy Picture of the Day
+
+| Método | Rota | Parâmetros | Descrição |
+|---|---|---|---|
+| GET | `/nasa/apod/photo` | `date` (YYYY-MM-DD) | Foto do dia para uma data específica |
+| GET | `/nasa/apod/photos` | `start_date`, `end_date` | Fotos em um intervalo de datas |
+| GET | `/nasa/apod/photos/count` | `count` (1–100) | Quantidade aleatória de fotos |
+| GET | `/nasa/apod/photos/thumbs` | `thumbs` (bool) | Fotos com miniaturas de vídeo |
+
+**Validações:** datas devem ser posteriores a `1995-06-16` e anteriores a hoje. Intervalo: data inicial ≤ data final. Count: entre 1 e 100.
+
+---
+
+### NEO — Near Earth Objects
+
+| Método | Rota | Parâmetros | Descrição |
+|---|---|---|---|
+| GET | `/nasa/neo/feed` | `start_date`, `end_date` | Asteroides em intervalo de até 7 dias |
+| GET | `/nasa/neo/lookup/{asteroid_id}` | `asteroid_id` (int) | Dados de um asteroide pelo ID |
+| GET | `/nasa/neo/browse` | — | Lista paginada de todos os asteroides |
+
+**Validações:** intervalo máximo de 7 dias entre `start_date` e `end_date`.
+
+---
+
+### DONKI — Space Weather Database
+
+Todos os endpoints aceitam `start_date` e `end_date` opcionais no formato `YYYY-MM-DD`.
+
+| Método | Rota | Parâmetros extras | Descrição |
+|---|---|---|---|
+| GET | `/nasa/donki/cme` | — | Ejeções de Massa Coronal |
+| GET | `/nasa/donki/cmeanalysis` | `most_accurate_only`, `complete_entry_only`, `speed`, `half_angle`, `catalog`, `keyword` | Análise de CME |
+| GET | `/nasa/donki/gst` | — | Tempestades Geomagnéticas |
+| GET | `/nasa/donki/ips` | `location`, `catalog` | Choques Interplanetários |
+| GET | `/nasa/donki/flr` | — | Flares Solares |
+| GET | `/nasa/donki/sep` | — | Partículas Energéticas Solares |
+| GET | `/nasa/donki/mpc` | — | Correntes de Plasma Magnetopause |
+| GET | `/nasa/donki/rbe` | — | Cinturão de Radiação |
+| GET | `/nasa/donki/hss` | — | Fluxos de Alta Velocidade |
+| GET | `/nasa/donki/wsaenlilsimulation` | — | Simulações WSA+Enlil |
+| GET | `/nasa/donki/notifications` | `type` (all, FLR, SEP, CME, IPS, MPC, GST, RBE, report) | Notificações de eventos |
+
+---
+
+### EPIC — Earth Polychromatic Imaging Camera
+
+Quatro coleções disponíveis: `natural`, `enhanced`, `aerosol`, `cloud`. Cada uma expõe 4 rotas:
+
+| Método | Rota | Parâmetros | Descrição |
+|---|---|---|---|
+| GET | `/nasa/epic/{colecao}` | — | Imagens mais recentes da coleção |
+| GET | `/nasa/epic/{colecao}/date/{date}` | `date` (YYYY-MM-DD) | Imagens de uma data específica |
+| GET | `/nasa/epic/{colecao}/all/` | — | Todas as imagens da coleção |
+| GET | `/nasa/epic/{colecao}/available` | — | Datas disponíveis na coleção |
+
+Substituir `{colecao}` por: `natural`, `enhanced`, `aerosol` ou `cloud`.
+
+---
+
+### InSight — Mars Weather Service
+
+| Método | Rota | Parâmetros | Descrição |
+|---|---|---|---|
+| GET | `/nasa/insight` | — | Dados meteorológicos dos últimos 7 dias em Marte |
+
+---
+
+### Image and Video Library
+
+| Método | Rota | Parâmetros | Descrição |
+|---|---|---|---|
+| GET | `/nasa/image_and_video_library/search` | `q`* (obrigatório), `center`, `description`, `keywords`, `location`, `media_type`, `nasa_id`, `page`, `page_size`, `photographer`, `title`, `year_start`, `year_end` | Busca no catálogo de mídia da NASA |
+| GET | `/nasa/image_and_video_library/asset/{nasa_id}` | `nasa_id` | Arquivos de um asset pelo ID |
+| GET | `/nasa/image_and_video_library/metadata/{nasa_id}` | `nasa_id` | Metadados de um asset pelo ID |
+| GET | `/nasa/image_and_video_library/captions/{nasa_id}` | `nasa_id` | Legendas de um vídeo pelo ID |
+
+`media_type` aceita: `image`, `video`, `audio`.
+
+---
+
+## Configuração
+
+### CORS
+
+O backend permite requisições apenas de `http://localhost:5173` (porta padrão do Vite). Para alterar, edite `BackEnd/main.py`:
+
+```python
+origins = [
+    "http://localhost:5173"
+]
+```
+
+### API Key
+
+A chave é lida do arquivo `BackEnd/api_key.env`:
+
+```
+NASA_API_KEY=sua_chave_aqui
+```
+
+Sem a chave, as requisições ainda funcionam com a chave demo `DEMO_KEY`, limitada a 30 req/hora e 50 req/dia.
+
+---
+
+## Tratamento de Erros
+
+O backend retorna erros padronizados via `HTTPException` do FastAPI:
+
+| Código | Causa |
+|---|---|
+| 400 | Parâmetros inválidos (validados pelo service) |
+| 504 | Timeout na chamada à NASA |
+| 502 | Resposta inválida da NASA |
+| 503 | Falha de comunicação com a NASA |
+
+O frontend detecta erros verificando `data.error` na resposta e exibe a mensagem na tela.
+
+---
+
+## Restrições do Projeto
+
+- Apenas métodos GET são implementados
+- O frontend nunca acessa a NASA diretamente
+- O backend não armazena dados — apenas repassa as respostas
+- Autenticação de usuários não é necessária
+
+## Requisitos do trabalho 
+
 FRONT-END: React + TypeScript + Vite (tivemos problemas para atualizar tela)
 BACK-END: FastAPI(Pyton)
 

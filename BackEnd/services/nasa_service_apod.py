@@ -20,7 +20,7 @@ def apod_validate_date(date_str: str):
     if date_received < min_date:
         return False
 
-    if date_received >= date.today():
+    if date_received > date.today():
         return False
 
     return True
